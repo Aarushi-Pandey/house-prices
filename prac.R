@@ -2050,6 +2050,317 @@ write.csv(svm_solution3, file="svm_solution3.csv", row.names = F)
 
 #should try changing the features more once i figure out what the imp variables are
 
+#making an svm model
+
+set.seed(123)
+svm_model4 <- svm(SalePrice ~ MSSubClass+MSZoning+ LotArea+Street+LotShape+Utilities
+                              +LotConfig+LandSlope+Neighborhood+Condition1+Condition2+OverallQual
+                              +YearBuilt+RoofStyle+RoofMatl+MasVnrArea+Foundation+BsmtQual+BsmtExposure
+                              +BsmtFinType1+BsmtFinSF1+BsmtFinSF2+BsmtUnfSF, data = train)
+summary(svm_model4)
+
+#plotting model
+#idk how to do this yet- error
+plot.svm(svm_model3)
+
+#making prediction with test data
+#predicting for train data instead of test data for some reason
+#will try again later
+?predict
+train_pre_svm4<- predict(svm_model4, data=test, type="response")
+train_pre_svm4
+table(train_pre_svm4)
+
+#not much accuracy but thats expected
+mean(train_pre_svm4==train$SalePrice)
+
+#values of train being predicted only
+?predict
+svm_prediction4<- predict(svm_model4, newdata=test[-81], type="response")
+svm_prediction4
+table(svm_prediction4)
+
+#making a submission
+svm_solution4 <- data.frame(test$Id, svm_prediction4)
+
+?data.frame
+colnames(svm_solution4)
+
+#renaming columns
+names(svm_solution4)[names(svm_solution4) == "test.Id"] <- "Id"
+names(svm_solution4)[names(svm_solution4) == "svm_prediction4"] <- "SalePrice"
+
+#creating solution file
+write.csv(svm_solution4, file="svm_solution4.csv", row.names = F)
+
+#worse score- 0.18813
+
+#try again with variables from varImpPlot
+set.seed(123)
+svm_model5 <- svm(SalePrice ~ OverallQual+Neighborhood+GrLivArea+GarageCars+ExterQual
+                  +TotalBsmtSF+X1stFlrSF+GarageArea+KitchenQual+X2ndFlrSF+BsmtQual
+                  +BsmtFinSF1+TotRmsAbvGrd+YearBuilt+LotArea+FullBath+MoSold+MSSubClass
+                  +GarageYrBlt+Exterior2nd+YearRemodAdd+FireplaceQu+Exterior1st
+                  +MasVnrArea+GarageFinish+GarageType+LotFrontage+BsmtUnfSF+Fireplaces
+                  +OverallCond, data = train)
+summary(svm_model5)
+
+#plotting model
+#idk how to do this yet- error
+plot.svm(svm_model5)
+
+#making prediction with test data
+#predicting for train data instead of test data for some reason
+#will try again later
+?predict
+train_pre_svm5<- predict(svm_model5, data=test, type="response")
+train_pre_svm5
+table(train_pre_svm5)
+
+#not much accuracy but thats expected
+mean(train_pre_svm5==train$SalePrice)
+
+#values of train being predicted only
+?predict
+svm_prediction5<- predict(svm_model5, newdata=test[-81], type="response")
+svm_prediction5
+table(svm_prediction5)
+
+#making a submission
+svm_solution5 <- data.frame(test$Id, svm_prediction5)
+
+?data.frame
+colnames(svm_solution5)
+
+#renaming columns
+names(svm_solution5)[names(svm_solution5) == "test.Id"] <- "Id"
+names(svm_solution5)[names(svm_solution5) == "svm_prediction5"] <- "SalePrice"
+
+#creating solution file
+write.csv(svm_solution5, file="svm_solution5.csv", row.names = F)
+
+#better score- 0.14637
+
+#gonna reduce num of variables
+set.seed(123)
+svm_model6 <- svm(SalePrice ~ OverallQual+Neighborhood+GrLivArea+GarageCars+ExterQual
+                  +TotalBsmtSF+X1stFlrSF+GarageArea+KitchenQual+X2ndFlrSF+BsmtQual
+                  +BsmtFinSF1+TotRmsAbvGrd+YearBuilt+LotArea+FullBath+MoSold+MSSubClass, 
+                  data = train)
+summary(svm_model6)
+
+#plotting model
+#idk how to do this yet- error
+plot.svm(svm_model6)
+
+#making prediction with test data
+#predicting for train data instead of test data for some reason
+#will try again later
+?predict
+train_pre_svm6<- predict(svm_model6, data=test, type="response")
+train_pre_svm6
+table(train_pre_svm6)
+
+#not much accuracy but thats expected
+mean(train_pre_svm6==train$SalePrice)
+
+#values of train being predicted only
+?predict
+svm_prediction6<- predict(svm_model6, newdata=test[-81], type="response")
+svm_prediction6
+table(svm_prediction6)
+
+#making a submission
+svm_solution6 <- data.frame(test$Id, svm_prediction6)
+
+?data.frame
+colnames(svm_solution6)
+
+#renaming columns
+names(svm_solution6)[names(svm_solution6) == "test.Id"] <- "Id"
+names(svm_solution6)[names(svm_solution6) == "svm_prediction6"] <- "SalePrice"
+
+#creating solution file
+write.csv(svm_solution6, file="svm_solution6.csv", row.names = F)
+
+#score decreased- 0.15362
+
+#try again with variables from varImpPlot2
+set.seed(123)
+svm_model7 <- svm(SalePrice ~ OverallQual+Neighborhood+ExterQual+GarageCars+X1stFlrSF
+                  +TotalBsmtSF+GarageArea+X2ndFlrSF+KitchenQual+BsmtQual+TotRmsAbvGrd
+                  +YearBuilt+LotArea+FullBath+BsmtQual+MSSubClass+YearRemodAdd
+                  +Exterior2nd+Exterior1st+GarageType+WoodDeckSF+OverallCond
+                  +HouseStyle+SaleCondition+HalfBath+SaleType+CentralAir+GarageQual
+                  +EnclosedPorch+ExterCond+MiscFeature, data = train)
+summary(svm_model7)
+
+#plotting model
+#idk how to do this yet- error
+plot.svm(svm_model7)
+
+#making prediction with test data
+#predicting for train data instead of test data for some reason
+#will try again later
+?predict
+train_pre_svm7<- predict(svm_model7, data=test, type="response")
+train_pre_svm7
+table(train_pre_svm7)
+
+#not much accuracy but thats expected
+mean(train_pre_svm7==train$SalePrice)
+
+#values of train being predicted only
+?predict
+svm_prediction7<- predict(svm_model7, newdata=test[-81], type="response")
+svm_prediction7
+table(svm_prediction7)
+
+#making a submission
+svm_solution7 <- data.frame(test$Id, svm_prediction7)
+
+?data.frame
+colnames(svm_solution7)
+
+#renaming columns
+names(svm_solution7)[names(svm_solution7) == "test.Id"] <- "Id"
+names(svm_solution7)[names(svm_solution7) == "svm_prediction7"] <- "SalePrice"
+
+#creating solution file
+write.csv(svm_solution7, file="svm_solution7.csv", row.names = F)
+
+#eh score- 0.15094
+
+#gonna reduce num of variables
+set.seed(123)
+svm_model8 <- svm(SalePrice ~ OverallQual+Neighborhood+ExterQual+GarageCars+X1stFlrSF
+                  +TotalBsmtSF+GarageArea+X2ndFlrSF+KitchenQual+BsmtQual+TotRmsAbvGrd
+                  +YearBuilt+LotArea+FullBath+BsmtQual+MSSubClass, data = train)
+summary(svm_model8)
+
+#plotting model
+#idk how to do this yet- error
+plot.svm(svm_model8)
+
+#making prediction with test data
+#predicting for train data instead of test data for some reason
+#will try again later
+?predict
+train_pre_svm8<- predict(svm_model8, data=test, type="response")
+train_pre_svm8
+table(train_pre_svm8)
+
+#not much accuracy but thats expected
+mean(train_pre_svm6==train$SalePrice)
+
+#values of train being predicted only
+?predict
+svm_prediction8<- predict(svm_model8, newdata=test[-81], type="response")
+svm_prediction8
+table(svm_prediction8)
+
+#making a submission
+svm_solution8 <- data.frame(test$Id, svm_prediction8)
+
+?data.frame
+colnames(svm_solution8)
+
+#renaming columns
+names(svm_solution8)[names(svm_solution8) == "test.Id"] <- "Id"
+names(svm_solution8)[names(svm_solution8) == "svm_prediction8"] <- "SalePrice"
+
+#creating solution file
+write.csv(svm_solution8, file="svm_solution8.csv", row.names = F)
+
+#score decreased- 0.15848
+
+#try again with variables from varImpPlot3
+set.seed(123)
+svm_model9 <- svm(SalePrice ~ OverallQual+Neighborhood+GarageCars+ExterQual+TotalBsmtSF
+                  +X1stFlrSF+GarageArea+X2ndFlrSF+TotRmsAbvGrd+LotArea+YearBuilt
+                  +KitchenQual+FullBath+MSSubClass+YearRemodAdd+OverallCond+SaleCondition
+                  +SaleType+CentralAir+ExterCond+MiscFeature, data = train)
+summary(svm_model9)
+
+#plotting model
+#idk how to do this yet- error
+plot.svm(svm_model7)
+
+#making prediction with test data
+#predicting for train data instead of test data for some reason
+#will try again later
+?predict
+train_pre_svm9<- predict(svm_model9, data=test, type="response")
+train_pre_svm9
+table(train_pre_svm9)
+
+#not much accuracy but thats expected
+mean(train_pre_svm9==train$SalePrice)
+
+#values of train being predicted only
+?predict
+svm_prediction9<- predict(svm_model9, newdata=test[-81], type="response")
+svm_prediction9
+table(svm_prediction9)
+
+#making a submission
+svm_solution9 <- data.frame(test$Id, svm_prediction9)
+
+?data.frame
+colnames(svm_solution9)
+
+#renaming columns
+names(svm_solution9)[names(svm_solution9) == "test.Id"] <- "Id"
+names(svm_solution9)[names(svm_solution9) == "svm_prediction9"] <- "SalePrice"
+
+#creating solution file
+write.csv(svm_solution9, file="svm_solution9.csv", row.names = F)
+
+#promising score- 0.14741
+
+#gonna reduce num of variables
+set.seed(123)
+svm_model10 <- svm(SalePrice ~ OverallQual+Neighborhood+GarageCars+ExterQual+TotalBsmtSF
+                  +X1stFlrSF+GarageArea+X2ndFlrSF+TotRmsAbvGrd+LotArea+YearBuilt
+                  +KitchenQual+FullBath+MSSubClass, data = train)
+summary(svm_model10)
+
+#plotting model
+#idk how to do this yet- error
+plot.svm(svm_model10)
+
+#making prediction with test data
+#predicting for train data instead of test data for some reason
+#will try again later
+?predict
+train_pre_svm10<- predict(svm_model10, data=test, type="response")
+train_pre_svm10
+table(train_pre_svm10)
+
+#not much accuracy but thats expected
+mean(train_pre_svm6==train$SalePrice)
+
+#values of train being predicted only
+?predict
+svm_prediction10<- predict(svm_model10, newdata=test[-81], type="response")
+svm_prediction10
+table(svm_prediction10)
+
+#making a submission
+svm_solution10 <- data.frame(test$Id, svm_prediction10)
+
+?data.frame
+colnames(svm_solution10)
+
+#renaming columns
+names(svm_solution10)[names(svm_solution10) == "test.Id"] <- "Id"
+names(svm_solution10)[names(svm_solution10) == "svm_prediction10"] <- "SalePrice"
+
+#creating solution file
+write.csv(svm_solution10, file="svm_solution10.csv", row.names = F)
+
+#score decreased- 0.15884
+
 #3. glm model/logit
 
 #making linear model
@@ -2167,6 +2478,46 @@ write.csv(logit_solution3, file="logit_solution3.csv", row.names = F)
 
 #can infer imp variables from summary-should do this later
 
+#making linear model
+?glm
+
+#had to exclude variables coz of error mssgs
+#excluding MSSubClass
+logit_model4<- glm(SalePrice ~ MSZoning+ LotArea+Street+LotShape+Utilities
+                  +LotConfig+LandSlope+Neighborhood+Condition1+Condition2+OverallQual
+                  +YearBuilt+RoofStyle+RoofMatl+MasVnrArea+Foundation+BsmtQual+BsmtExposure
+                  +BsmtFinType1+BsmtFinSF1+BsmtFinSF2+BsmtUnfSF, data=train[-c(2,50,55,57,62,73)])
+summary(logit_model4)
+
+str(full)
+full$Street
+
+#making a prediction and displaying it
+train_pre_logit4 <- predict(logit_model4, data=train,type =  "response")
+table(train_pre_logit4)
+
+#predicting with test data
+test_pre_logit4 <- predict(logit_model4, newdata=test,type =  "response")
+
+table(test$PassengerId)
+#idk what this is supposed to do since we dont know survived
+table(test_pre_logit)
+
+#making a submission
+logit_solution4 <- data.frame(test$Id, test_pre_logit4)
+
+colnames(logit_solution4)
+
+#renaming columns
+names(logit_solution4)[names(logit_solution4) == "test.Id"] <- "Id"
+names(logit_solution4)[names(logit_solution4) == "test_pre_logit4"] <- "SalePrice"
+
+#creating solution file
+write.csv(logit_solution4, file="logit_solution4.csv", row.names = F)
+
+#worse score than expected- 0.19448
+
+
 #4. decision tree- check for min xerror
 
 set.seed(123)
@@ -2262,6 +2613,11 @@ test_pre_rf <- predict(rf_model, test)
 
 #make csv file with prediction
 rf_solution <- data.frame(test$Id, test_pre_rf)
+
+#more accurate without SibSp + Parch
+varImpPlot(rf_model)
+varImpPlot(rf_model2)
+varImpPlot(rf_model3)
 
 colnames(rf_solution)
 
