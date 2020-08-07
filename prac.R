@@ -2701,3 +2701,91 @@ names(rf_solution3)[names(rf_solution3) == "test_pre_rf3"] <- "SalePrice"
 write.csv(rf_solution3, file="rf_solution3.csv", row.names = F)
 
 #surprisingly score got worse- 0.15663
+
+#combining 2 solutions by finding average
+#svm_solution6 and 9
+
+#finding mean of 2 predictions and storing it in variable
+x1 <- data.frame(svm_prediction6, svm_prediction9)
+
+#findind mean of each row and storing it in variable
+prediction_combined69 <- data.frame(rowMeans(x1))
+?mean
+
+#printing out prediction column
+prediction_combined69[,1]
+
+#combining Id and prediction
+svm_combined69 <- data.frame(Id=test[,1],SalePrice=prediction_combined69[,1])
+colnames(svm_combined69)
+
+#creating solution file
+write.csv(svm_combined69, file="svm_combined69.csv", row.names = F)
+
+#score= 0.14696
+
+#svm_solution5 and 9
+
+#finding mean of 2 predictions and storing it in variable
+x2 <- data.frame(svm_prediction5, svm_prediction9)
+
+#findind mean of each row and storing it in variable
+prediction_combined59 <- data.frame(rowMeans(x2))
+?mean
+
+#printing out prediction column
+prediction_combined59[,1]
+
+#combining Id and prediction
+svm_combined59 <- data.frame(Id=test[,1],SalePrice=prediction_combined59[,1])
+colnames(svm_combined59)
+
+#creating solution file
+write.csv(svm_combined59, file="svm_combined59.csv", row.names = F)
+
+#lowest score yet= 0.14402
+
+#svm_solution5 and 3
+
+#finding mean of 2 predictions and storing it in variable
+x3 <- data.frame(svm_prediction5, svm_prediction3)
+
+#findind mean of each row and storing it in variable
+prediction_combined35 <- data.frame(rowMeans(x3))
+?mean
+
+#printing out prediction column
+prediction_combined35[,1]
+
+#combining Id and prediction
+svm_combined35 <- data.frame(Id=test[,1],SalePrice=prediction_combined35[,1])
+colnames(svm_combined35)
+
+#creating solution file
+write.csv(svm_combined35, file="svm_combined35.csv", row.names = F)
+
+#low score= 0.14408
+
+#svm_solution5, 9 and 3
+
+#finding mean of 2 predictions and storing it in variable
+x4 <- data.frame(svm_prediction5, svm_prediction3, svm_prediction9)
+
+#findind mean of each row and storing it in variable
+prediction_combined359 <- data.frame(rowMeans(x4))
+?mean
+
+#printing out prediction column
+prediction_combined359[,1]
+
+#combining Id and prediction
+svm_combined359 <- data.frame(Id=test[,1],SalePrice=prediction_combined359[,1])
+colnames(svm_combined359)
+
+#creating solution file
+write.csv(svm_combined359, file="svm_combined359.csv", row.names = F)
+
+#score= 0.14455
+
+
+
